@@ -1,7 +1,7 @@
 PROJECT = mongodb
 
 DIALYZER = dialyzer
-REBAR = $(shell which rebar || echo ./rebar)
+REBAR = ./rebar3
 
 all: app
 
@@ -37,11 +37,11 @@ ct: app
 	@$(REBAR) ct skip_deps=true
 
 # Dialyzer.
-.$(PROJECT).plt: 
+.$(PROJECT).plt:
 	@$(DIALYZER) --build_plt --output_plt .$(PROJECT).plt -r deps \
 		--apps erts kernel stdlib sasl inets crypto public_key ssl mnesia syntax_tools asn1
 
-clean-plt: 
+clean-plt:
 	rm -f .$(PROJECT).plt
 
 build-plt: clean-plt .$(PROJECT).plt
